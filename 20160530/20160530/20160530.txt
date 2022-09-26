@@ -1,0 +1,521 @@
+drop table if exists store;
+drop table if exists shipment;
+drop table if exists package;
+drop table if exists comprise;
+drop table if exists order_info;
+drop table if exists onlinecustomer;
+drop table if exists contractor;
+drop table if exists categorize;
+drop table if exists product;
+drop table if exists customer;
+drop table if exists category;
+drop table if exists warehouse;
+drop table if exists manufacturer;
+
+create table manufacturer
+(
+	manufacturer_name     char(18) not null,
+	manufacturer_loaction  char(18) not null,
+	primary key (manufacturer_name)
+);
+
+create table warehouse
+(
+	warehouse_id          char(18) not null,
+	warehouse_name        char(18) not null,
+	warehouse_location    char(18) not null,
+	primary key (warehouse_id)
+);
+
+create table category
+(
+	category_name         char(18) not null,
+	category_description  char(18) not null,
+	primary key (category_name)
+);
+
+create table customer
+(
+	customer_id           char(18) not null,
+	contract              char(18) not null,
+	customer_name         char(18) not null,
+	region                char(18) null,
+	gender                char(18) null,
+	primary key (customer_id)
+);
+
+create table product
+(
+	product_id            char(18) not null,
+	product_name          char(18) not null,
+	product_price         char(18) not null,
+	manufacturer_name     char(18) null,
+	primary key (product_id),
+	foreign key (manufacturer_name) references manufacturer(manufacturer_name)
+);
+
+create table categorize
+(
+	category_name         char(18) not null,
+	product_id            char(18) not null,
+	primary key (category_name,product_id),
+	foreign key (category_name) references category(category_name), foreign key (product_id) references product(product_id)
+);
+
+create table contractor
+(	
+	customer_id           char(18) not null,
+	accountnumber         char(18) not null,
+	address               char(40) not null,
+	primary key (customer_id,accountnumber),
+	foreign key (customer_id) references customer(customer_id)
+);
+
+create table onlinecustomer
+(	
+	customer_id           char(18)not null,
+	cardnumber            char(18)not null,
+	address               char(40) not null,
+	primary key (customer_id,cardnumber),
+	foreign key (customer_id) references customer(customer_id)
+);
+create table order_info
+(
+	order_id              char(18) not null,
+	customer_id           char(18) not null,
+	order_date            char(18) not null,
+	primary key (order_id),
+	foreign key (customer_id) references customer(customer_id)
+);
+
+create table comprise
+(	
+	order_id              char(18)not null,
+	product_id            char(18)not null,
+	quantity              char(18)not null,
+	primary key (product_id,order_id),
+	foreign key (product_id) references product(product_id), foreign key (order_id) references order_info(order_id)
+);
+
+
+
+create table package
+(
+	package_id             char(18)not null,
+	product_id            char(18)not null,
+	primary key (package_id,product_id),
+	foreign key (product_id) references product(product_id)
+);
+
+create table shipment
+(
+	shipment_id           integer not null,
+	order_id              char(18) not null,
+	shipement_name        char(18) not null,
+	shipment_date         char(18)not null,
+	completion_date       char(18) null,
+	primary key (shipment_id),
+	foreign key (order_id) references order_info(order_id)
+);
+
+create table store
+(	
+	warehouse_id          char(18) not null,
+	product_id            char(18) not null,
+	inventory             char(18)not null,
+	primary key (warehouse_id,product_id),
+	foreign key (warehouse_id) references warehouse(warehouse_id), foreign key (product_id) references product(product_id)
+);
+insert into manufacturer values ('Apple', 'California');
+insert into manufacturer values ('Sony', 'LA');
+insert into manufacturer values ('Samsung', 'London');
+insert into manufacturer values ('LG', 'Sanfransisco');
+insert into manufacturer values ('Tefar', 'Newyork');
+insert into manufacturer values ('Philips', 'Chicago');
+insert into manufacturer values ('Dyson', 'Washington');
+insert into manufacturer values ('Hp', 'Houston');
+insert into manufacturer values ('Lenovo', 'Texax');
+insert into manufacturer values ('Hwawei', 'Florida');
+insert into manufacturer values ('Nokia', 'Colorado');
+insert into manufacturer values ('Asus', 'Wisconsin');
+insert into manufacturer values ('MSI', 'Oklahoma');
+insert into manufacturer values ('Xiaomi', 'Montana');
+insert into manufacturer values ('Logitech', 'Montana');
+
+insert into warehouse values ('1001', 'warehouse1', 'California');
+insert into warehouse values ('1002', 'warehouse2', 'LA');
+insert into warehouse values ('1003', 'warehouse3', 'London');
+insert into warehouse values ('1004', 'warehouse4', 'Sanfransisco');
+insert into warehouse values ('1005', 'warehouse5', 'Newyork');
+insert into warehouse values ('1006', 'warehouse6', 'Chicago');
+insert into warehouse values ('1007', 'warehouse7', 'Washington');
+insert into warehouse values ('1008', 'warehouse8', 'Houston');
+insert into warehouse values ('1009', 'warehouse9', 'Texax');
+insert into warehouse values ('1010', 'warehouse10', 'Florida');
+insert into warehouse values ('1011', 'warehouse11', 'Colorado');
+insert into warehouse values ('1012', 'warehouse12', 'Wisconsin');
+insert into warehouse values ('1013', 'warehouse13', 'Oklahoma');
+insert into warehouse values ('1014', 'warehouse14', 'Montana');
+insert into warehouse values ('9999', 'online', 'headquarter');
+
+insert into category values ('category1', 'description1');
+insert into category values ('category2', 'description2');
+insert into category values ('category3', 'description3');
+insert into category values ('category4', 'description4');
+insert into category values ('category5', 'description5');
+insert into category values ('category6', 'description6');
+insert into category values ('category7', 'description7');
+insert into category values ('category8', 'description8');
+insert into category values ('category9', 'description9');
+insert into category values ('category10', 'description10');
+insert into category values ('category11', 'description11');
+insert into category values ('category12', 'description12');
+insert into category values ('category13', 'description13');
+insert into category values ('category14', 'description14');
+insert into category values ('category15', 'description15');
+
+insert into customer values ('20160001', '01089234631', 'Eamon', 'Male', 'California');
+insert into customer values ('20160002', '01087533780', 'Alick', 'Male', 'LA');
+insert into customer values ('20160003', '01088901981', 'Ian', 'Male', 'London');
+insert into customer values ('20160004', '01069846409', 'Franni', 'Female', 'Sanfransisco');
+insert into customer values ('20160005', '01035305130', 'Julie', 'Female', 'Newyork');
+insert into customer values ('20160006', '01037138012', 'Darrell', 'Male', 'Chicago');
+insert into customer values ('20160007', '01055526967', 'Gus', 'Female', 'Washington');
+insert into customer values ('20160008', '01089941480', 'Wadsworth', 'Male', 'Houston');
+insert into customer values ('20160009', '01015682332', 'Nonah', 'Female', 'Texax');
+insert into customer values ('20160010', '01034234878', 'Griselda', 'Female', 'Florida');
+insert into customer values ('20160011', '01095229177', 'Licha', 'Female', 'Colorado');
+insert into customer values ('20160012', '01061701351', 'Alvin', 'Male', 'Wisconsin');
+insert into customer values ('20160013', '01082963216', 'Vanni', 'Female', 'Oklahoma');
+insert into customer values ('20160014', '01048762139', 'Tiffi', 'Female', 'Montana');
+insert into customer values ('20160015', '01054638288', 'Kary', 'Female', 'California');
+insert into customer values ('20160016', '01054639187', 'Elizabeth', 'Female', 'LA');
+insert into customer values ('20160017', '01078749740', 'Lucia', 'Female', 'London');
+insert into customer values ('20160018', '01064455070', 'Jason', 'Male', 'Sanfransisco');
+insert into customer values ('20160019', '01044082155', 'Massimiliano', 'Male', 'Newyork');
+insert into customer values ('20160020', '01001854505', 'Minna', 'Female', 'Chicago');
+insert into customer values ('20160021', '01024859316', 'Crichton', 'Male', 'Washington');
+insert into customer values ('20160022', '01044384917', 'Wadsworth', 'Male', 'Houston');
+insert into customer values ('20160023', '01092856732', 'Haskel', 'Male', 'Texax');
+insert into customer values ('20160024', '01063259895', 'Clemmie', 'Female', 'Florida');
+insert into customer values ('20160025', '01031577406', 'Alexis', 'Male', 'Colorado');
+insert into customer values ('20160026', '01068232883', 'Quintina', 'Female', 'Wisconsin');
+insert into customer values ('20160027', '01034746163', 'Grover', 'Male', 'Oklahoma');
+insert into customer values ('20160028', '01098471696', 'Clarie', 'Female', 'Montana');
+insert into customer values ('20160029', '01096356280', 'Maximo', 'Male', 'California');
+insert into customer values ('20160030', '01074299284', 'Allen', 'Male', 'LA');
+insert into onlinecustomer values ('20160001', '5325751070', '5 Moose Lane');
+insert into onlinecustomer values ('20160002', '6112852894', '952 Sherman Parkway');
+insert into onlinecustomer values ('20160003', '7846241854', '19 Scoville Terrace');
+insert into onlinecustomer values ('20160004', '3836533827', '3006 Comanche Circle');
+insert into onlinecustomer values ('20160005', '7943796365', '67936 Heath Street');
+insert into onlinecustomer values ('20160006', '5829995099', '7997 Troy Road');
+insert into onlinecustomer values ('20160007', '3579654401', '843 Ryan Junction');
+insert into onlinecustomer values ('20160008', '9958202475', '1 Helena Lane');
+insert into onlinecustomer values ('20160009', '8659524619', '3374 Farmco Lane');
+insert into onlinecustomer values ('20160010', '1775629994', '1919 Clemons Hill');
+insert into onlinecustomer values ('20160011', '4465080351', '80 Oxford Avenue');
+insert into onlinecustomer values ('20160012', '5982309562', '29 Heffernan Place');
+insert into onlinecustomer values ('20160013', '2567639537', '443 Cascade Hill');
+insert into onlinecustomer values ('20160014', '4615760296', '9 Farmco Center');
+insert into onlinecustomer values ('20160015', '5356974435', '4487 Talmadge Alley');
+insert into contractor values ('20160016', '4292727388', '92 Oak Center');
+insert into contractor values ('20160017', '6739284197', '022 Jay Crossing');
+insert into contractor values ('20160018', '3188637913', '5453 Havey Parkway');
+insert into contractor values ('20160019', '9506322218', '75011 Hansons Pass');
+insert into contractor values ('20160020', '2445751774', '493 Milwaukee Hill');
+insert into contractor values ('20160021', '6281647911', '44839 Haas Crossing');
+insert into contractor values ('20160022', '7119181181', '2 Kings Hill');
+insert into contractor values ('20160023', '2022591568', '320 Golf View Way');
+insert into contractor values ('20160024', '6732807188', '66 Kinsman Junction');
+insert into contractor values ('20160025', '1637020231', '83129 Michigan Parkway');
+insert into contractor values ('20160026', '7075911847', '31 Schiller Pass');
+insert into contractor values ('20160027', '1975371489', '016 Lerdahl Hill');
+insert into contractor values ('20160028', '3511983296', '46953 Beilfuss Plaza');
+insert into contractor values ('20160029', '9506780710', '6452 Garrison Junction');
+insert into contractor values ('20160030', '6267659649', '03723 Hooker Terrace');
+insert into product values ('001', 'Iphone', '690', 'Apple');
+insert into product values ('002', 'Sonymoniter', '610', 'Sony');
+insert into product values ('003', 'GaluxyS', '930', 'Samsung');
+insert into product values ('004', 'Lgwashtower', '780', 'LG');
+insert into product values ('005', 'Dvaccum', '750', 'Tefar');
+insert into product values ('006', 'Pshaver', '860', 'Philips');
+insert into product values ('007', 'Dvaccum', '510', 'Dyson');
+insert into product values ('008', 'Hpprinter', '670', 'Hp');
+insert into product values ('009', 'LenovoLaptop', '600', 'Lenovo');
+insert into product values ('010', 'Hwaweiphone', '640', 'Hwawei');
+insert into product values ('011', 'Nophone', '960', 'Nokia');
+insert into product values ('012', 'AususLaptop', '570', 'Asus');
+insert into product values ('013', 'MSIkeyboard', '710', 'MSI');
+insert into product values ('014', 'Xiaomicleaner', '620', 'Xiaomi');
+insert into product values ('015', 'Logimouse', '880', 'Logitech');
+insert into product values ('101', 'Package1', '1200', null);
+insert into product values ('102', 'Package2', '1120', null);
+insert into product values ('103', 'Package3', '1000', null);
+insert into product values ('104', 'Package4', '1350', null);
+insert into product values ('105', 'Package5', '1160', null);
+insert into product values ('106', 'Package6', '1330', null);
+insert into product values ('107', 'Package7', '1050', null);
+insert into product values ('108', 'Package8', '1290', null);
+insert into product values ('109', 'Package9', '1100', null);
+insert into product values ('110', 'Package10', '1240', null);
+insert into product values ('111', 'Package11', '1030', null);
+insert into product values ('112', 'Package12', '1100', null);
+insert into product values ('113', 'Package13', '1250', null);
+insert into product values ('114', 'Package14', '1200', null);
+insert into product values ('115', 'Package15', '1020', null);
+
+
+insert into package values ('101', '001');
+insert into package values ('101', '002');
+insert into package values ('102', '003');
+insert into package values ('102', '004');
+insert into package values ('102', '005');
+insert into package values ('103', '006');
+insert into package values ('103', '007');
+insert into package values ('104', '008');
+insert into package values ('104', '009');
+insert into package values ('105', '010');
+insert into package values ('105', '011');
+insert into package values ('106', '012');
+insert into package values ('106', '013');
+insert into package values ('107', '014');
+insert into package values ('107', '015');
+insert into package values ('108', '002');
+insert into package values ('108', '004');
+insert into package values ('109', '006');
+insert into package values ('109', '008');
+insert into package values ('110', '010');
+insert into package values ('110', '012');
+insert into package values ('111', '014');
+insert into package values ('111', '001');
+insert into package values ('112', '003');
+insert into package values ('112', '005');
+insert into package values ('113', '007');
+insert into package values ('113', '009');
+insert into package values ('114', '011');
+insert into package values ('114', '013');
+insert into package values ('115', '015');
+insert into package values ('115', '001');
+
+
+insert into order_info values ('10000001', '20160001', '2021-08-01');
+insert into order_info values ('10000002', '20160002', '2021-12-09');
+insert into order_info values ('10000003', '20160003', '2022-01-22');
+insert into order_info values ('10000004', '20160004', '2022-02-18');
+insert into order_info values ('10000005', '20160005', '2022-04-21');
+insert into order_info values ('10000006', '20160006', '2021-12-26');
+insert into order_info values ('10000007', '20160007', '2022-02-09');
+insert into order_info values ('10000008', '20160008', '2022-03-23');
+insert into order_info values ('10000009', '20160009', '2021-09-10');
+insert into order_info values ('10000010', '20160010', '2022-05-27');
+insert into order_info values ('10000011', '20160016', '2021-09-23');
+insert into order_info values ('10000012', '20160017', '2022-01-20');
+insert into order_info values ('10000013', '20160018', '2021-08-22');
+insert into order_info values ('10000014', '20160019', '2021-11-24');
+insert into order_info values ('10000015', '20160020', '2022-02-08');
+insert into order_info values ('10000016', '20160021', '2021-09-06');
+insert into order_info values ('10000017', '20160022', '2021-06-07');
+insert into order_info values ('10000018', '20160023', '2021-07-31');
+insert into order_info values ('10000019', '20160024', '2022-01-30');
+insert into order_info values ('10000020', '20160025', '2021-12-02');
+insert into order_info values ('10000021', '20160026', '2021-09-19');
+insert into order_info values ('10000022', '20160027', '2022-02-03');
+insert into order_info values ('10000023', '20160028', '2021-06-28');
+insert into order_info values ('10000024', '20160029', '2022-01-18');
+insert into order_info values ('10000025', '20160030', '2022-05-10');
+insert into order_info values ('10000026', '20160001', '2021-09-26');
+insert into order_info values ('10000027', '20160002', '2022-04-27');
+insert into order_info values ('10000028', '20160003', '2020-08-25');
+insert into order_info values ('10000029', '20160004', '2022-01-01');
+insert into order_info values ('10000030', '20160005', '2022-05-12');
+insert into order_info values ('10000031', '20160006', '2020-10-28');
+insert into order_info values ('10000032', '20160007', '2020-11-30');
+insert into order_info values ('10000033', '20160008', '2021-03-24');
+insert into order_info values ('10000034', '20160009', '2021-05-19');
+insert into order_info values ('10000035', '20160010', '2020-05-24');
+insert into order_info values ('10000036', '20160016', '2022-03-18');
+insert into order_info values ('10000037', '20160017', '2020-05-02');
+insert into order_info values ('10000038', '20160018', '2020-05-09');
+insert into order_info values ('10000039', '20160019', '2020-03-24');
+insert into order_info values ('10000040', '20160020', '2022-01-02');
+insert into order_info values ('10000041', '20160021', '2021-04-24');
+insert into order_info values ('10000042', '20160022', '2020-10-03');
+insert into order_info values ('10000043', '20160023', '2021-03-16');
+insert into order_info values ('10000044', '20160024', '2021-01-31');
+insert into order_info values ('10000045', '20160025', '2020-02-05');
+insert into order_info values ('10000046', '20160026', '2022-03-22');
+insert into order_info values ('10000047', '20160027', '2021-10-11');
+insert into order_info values ('10000048', '20160028', '2021-11-25');
+insert into order_info values ('10000049', '20160029', '2022-04-13');
+insert into order_info values ('10000050', '20160030', '2020-05-19');
+insert into order_info values ('10000051', '20160016', '2022-05-13');
+insert into order_info values ('10000052', '20160017', '2022-05-11');
+insert into order_info values ('10000053', '20160018', '2022-05-21');
+insert into order_info values ('10000054', '20160019', '2022-05-07');
+insert into order_info values ('10000055', '20160020', '2022-05-03');
+
+insert into categorize values ('category1', '001');
+insert into categorize values ('category1', '002');
+insert into categorize values ('category1', '003');
+insert into categorize values ('category1', '004');
+insert into categorize values ('category1', '005');
+insert into categorize values ('category2', '006');
+insert into categorize values ('category2', '007');
+insert into categorize values ('category2', '008');
+insert into categorize values ('category2', '009');
+insert into categorize values ('category2', '010');
+insert into categorize values ('category3', '011');
+insert into categorize values ('category3', '012');
+insert into categorize values ('category3', '013');
+insert into categorize values ('category3', '014');
+insert into categorize values ('category3', '015');
+
+insert into comprise values ('10000001', '101', '1');
+insert into comprise values ('10000002', '102', '1');
+insert into comprise values ('10000003', '103', '1');
+insert into comprise values ('10000004', '104', '1');
+insert into comprise values ('10000005', '105', '1');
+insert into comprise values ('10000006', '106', '1');
+insert into comprise values ('10000007', '107', '1');
+insert into comprise values ('10000008', '108', '1');
+insert into comprise values ('10000009', '109', '1');
+insert into comprise values ('10000010', '110', '1');
+insert into comprise values ('10000011', '001', '2');
+insert into comprise values ('10000012', '002', '2');
+insert into comprise values ('10000013', '003', '2');
+insert into comprise values ('10000014', '004', '1');
+insert into comprise values ('10000015', '005', '3');
+insert into comprise values ('10000016', '006', '1');
+insert into comprise values ('10000017', '007', '2');
+insert into comprise values ('10000018', '008', '3');
+insert into comprise values ('10000019', '009', '1');
+insert into comprise values ('10000020', '010', '2');
+insert into comprise values ('10000021', '011', '3');
+insert into comprise values ('10000022', '012', '1');
+insert into comprise values ('10000023', '013', '2');
+insert into comprise values ('10000024', '014', '1');
+insert into comprise values ('10000025', '015', '1');
+insert into comprise values ('10000026', '009', '1');
+insert into comprise values ('10000027', '010', '1');
+insert into comprise values ('10000028', '011', '1');
+insert into comprise values ('10000029', '012', '1');
+insert into comprise values ('10000030', '013', '1');
+insert into comprise values ('10000031', '110', '1');
+insert into comprise values ('10000032', '111', '2');
+insert into comprise values ('10000033', '112', '2');
+insert into comprise values ('10000034', '113', '2');
+insert into comprise values ('10000035', '114', '1');
+insert into comprise values ('10000036', '001', '3');
+insert into comprise values ('10000037', '002', '1');
+insert into comprise values ('10000038', '003', '2');
+insert into comprise values ('10000039', '004', '3');
+insert into comprise values ('10000040', '005', '1');
+insert into comprise values ('10000041', '006', '2');
+insert into comprise values ('10000042', '007', '3');
+insert into comprise values ('10000043', '008', '1');
+insert into comprise values ('10000044', '009', '2');
+insert into comprise values ('10000045', '010', '1');
+insert into comprise values ('10000046', '011', '1');
+insert into comprise values ('10000047', '012', '2');
+insert into comprise values ('10000048', '013', '1');
+insert into comprise values ('10000049', '014', '4');
+insert into comprise values ('10000050', '015', '2');
+insert into comprise values ('10000051', '009', '1');
+insert into comprise values ('10000052', '010', '1');
+insert into comprise values ('10000053', '011', '2');
+insert into comprise values ('10000054', '012', '1');
+insert into comprise values ('10000055', '013', '4');
+
+
+insert into shipment values ('30001', '10000001', 'USPS', '2021-08-03', '2021-08-03');
+insert into shipment values ('30002', '10000002', 'USPS', '2021-12-11', '2021-12-11');
+insert into shipment values ('30003', '10000003', 'USPS', '2022-01-24', '2022-01-24');
+insert into shipment values ('30004', '10000004', 'USPS', '2022-02-20', '2022-02-22');
+insert into shipment values ('30005', '10000005', 'USPS', '2022-04-23', '2022-04-23');
+insert into shipment values ('30006', '10000006', 'USPS', '2021-12-28', '2021-12-28');
+insert into shipment values ('30007', '10000007', 'USPS', '2022-02-11', '2022-02-12');
+insert into shipment values ('30008', '10000008', 'FEDEX', '2022-03-25', '2022-03-25');
+insert into shipment values ('30009', '10000009', 'FEDEX', '2021-09-12', '2021-09-12');
+insert into shipment values ('30010', '10000010', 'DHL', '2022-05-29', '2022-05-30');
+insert into shipment values ('30011', '10000011', 'USPS', '2021-09-25', '2021-09-25');
+insert into shipment values ('30012', '10000012', 'USPS', '2022-01-22', '2022-01-22');
+insert into shipment values ('30013', '10000013', 'USPS', '2021-08-24', '2021-08-24');
+insert into shipment values ('30014', '10000014', 'USPS', '2021-11-26', '2021-11-26');
+insert into shipment values ('30015', '10000015', 'USPS', '2022-02-10', '2022-02-10');
+insert into shipment values ('30016', '10000016', 'USPS', '2021-09-08', '2021-09-08');
+insert into shipment values ('30017', '10000017', 'USPS', '2021-06-09', '2021-06-09');
+insert into shipment values ('30018', '10000018', 'FEDEX', '2021-08-02', '2021-08-02');
+insert into shipment values ('30019', '10000019', 'FEDEX', '2022-02-01', '2022-02-01');
+insert into shipment values ('30020', '10000020', 'DHL', '2021-12-04', '2021-12-04');
+insert into shipment values ('30021', '10000021', 'DHL', '2021-09-21', '2021-09-24');
+insert into shipment values ('30022', '10000022', 'FEDEX', '2022-02-05', '2022-02-08');
+insert into shipment values ('30023', '10000023', 'FEDEX', '2021-06-30', '2021-07-03');
+insert into shipment values ('30024', '10000024', 'DHL', '2022-01-20', '2022-01-23');
+insert into shipment values ('30025', '10000025', 'DHL', '2022-05-12', '2022-05-15');
+insert into shipment values ('30026', '10000026', 'FEDEX', '2021-09-27', '2021-09-27');
+insert into shipment values ('30027', '10000027', 'FEDEX', '2022-04-28', '2022-04-28');
+insert into shipment values ('30028', '10000028', 'DHL', '2020-08-26', '2020-08-26');
+insert into shipment values ('30029', '10000029', 'USPS', '2022-01-02', '2022-01-02');
+insert into shipment values ('30030', '10000030', 'USPS', '2022-05-13', '2022-05-13');
+insert into shipment values ('30031', '10000031', 'USPS', '2020-10-29', '2020-10-29');
+insert into shipment values ('30032', '10000032', 'USPS', '2020-12-01', '2020-12-01');
+insert into shipment values ('30033', '10000033', 'USPS', '2021-03-25', '2021-03-25');
+insert into shipment values ('30034', '10000034', 'USPS', '2021-05-20', '2021-05-20');
+insert into shipment values ('30035', '10000035', 'USPS', '2020-05-25', '2020-05-25');
+insert into shipment values ('30036', '10000036', 'FEDEX', '2022-03-19', '2022-03-19');
+insert into shipment values ('30037', '10000037', 'FEDEX', '2020-05-03', '2020-05-03');
+insert into shipment values ('30038', '10000038', 'DHL', '2020-05-10', '2020-05-10');
+insert into shipment values ('30039', '10000039', 'DHL', '2020-03-25', '2020-03-25');
+insert into shipment values ('30040', '10000040', 'FEDEX', '2022-01-03', '2022-01-03');
+insert into shipment values ('30041', '10000041', 'FEDEX', '2021-04-25', '2021-04-25');
+insert into shipment values ('30042', '10000042', 'DHL', '2020-10-04', '2020-10-04');
+insert into shipment values ('30043', '10000043', 'DHL', '2021-03-17', '2021-03-17');
+insert into shipment values ('30044', '10000044', 'FEDEX', '2021-02-01', '2021-02-01');
+insert into shipment values ('30045', '10000045', 'FEDEX', '2020-02-06', '2020-02-06');
+insert into shipment values ('30046', '10000046', 'DHL', '2022-03-23', '2022-03-23');
+insert into shipment values ('30047', '10000047', 'USPS', '2021-10-12', '2021-10-12');
+insert into shipment values ('30048', '10000048', 'USPS', '2021-11-26', '2021-11-26');
+insert into shipment values ('30049', '10000049', 'USPS', '2022-04-14', '2022-04-15');
+insert into shipment values ('30050', '10000050', 'USPS', '2020-05-20', '2020-05-21');
+insert into shipment values ('30051', '10000051', 'FEDEX', '2022-05-14', '2022-05-14');
+insert into shipment values ('30052', '10000052', 'DHL', '2022-05-12', '2022-05-12');
+insert into shipment values ('30053', '10000053', 'USPS', '2022-05-21', '2022-05-21');
+insert into shipment values ('30054', '10000054', 'USPS', '2022-05-07', '2022-05-07');
+insert into shipment values ('30055', '10000055', 'USPS', '2022-05-03', '2022-05-03');
+
+
+insert into store values ('1001', '001', '4');
+insert into store values ('1001', '002', '8');
+insert into store values ('1001', '003', '3');
+insert into store values ('1001', '004', '0');
+insert into store values ('1001', '005', '2');
+insert into store values ('1001', '006', '0');
+insert into store values ('1001', '007', '4');
+insert into store values ('1001', '008', '2');
+insert into store values ('1001', '009', '5');
+insert into store values ('1001', '010', '0');
+insert into store values ('1001', '011', '6');
+insert into store values ('1001', '012', '7');
+insert into store values ('1002', '001', '0');
+insert into store values ('1002', '002', '8');
+insert into store values ('1002', '003', '6');
+insert into store values ('1002', '004', '10');
+insert into store values ('1002', '005', '15');
+insert into store values ('1002', '006', '16');
+insert into store values ('1003', '001', '12');
+insert into store values ('1003', '002', '0');
+insert into store values ('1003', '003', '8');
+insert into store values ('1003', '004', '6');
+insert into store values ('1003', '005', '0');
+insert into store values ('1004', '001', '4');
+insert into store values ('1004', '002', '7');
+insert into store values ('1004', '003', '13');
+insert into store values ('1004', '004', '15');
+insert into store values ('1004', '005', '11');
+insert into store values ('1005', '001', '0');
+insert into store values ('1005', '002', '8');
+insert into store values ('1005', '003', '4');
+insert into store values ('1005', '004', '6');
+insert into store values ('1005', '005', '5');
+insert into store values ('1005', '006', '2');
