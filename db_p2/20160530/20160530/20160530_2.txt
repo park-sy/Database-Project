@@ -1,0 +1,29 @@
+SET SQL_SAFE_UPDATES = 0;
+
+delete from store;
+delete from shipment;
+delete from package;
+delete from comprise;
+delete from order_info;
+delete from onlinecustomer;
+delete from contractor;
+delete from categorize;
+delete from product;
+delete from customer;
+delete from category;
+delete from warehouse;
+delete from manufacturer;
+
+drop table if exists store;
+drop table if exists shipment;
+drop table if exists package;
+drop table if exists comprise;
+drop table if exists order_info;
+drop table if exists onlinecustomer;
+drop table if exists contractor;
+drop table if exists categorize;
+drop table if exists product;
+drop table if exists customer;
+drop table if exists category;
+drop table if exists warehouse;
+drop table if exists manufacturer;
