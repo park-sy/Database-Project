@@ -11,12 +11,11 @@ Schema diagram
 ![image](https://user-images.githubusercontent.com/53611554/193028739-7eb70965-b15a-48dc-a782-2689093d0267.png)
 
 Query
-(TYPE 1) Assume the package shipped by USPS with tracking number X is reported to 
-have been destroyed in an accident. Find the contact information for the customer.
+(TYPE 1) Assume the package shipped by USPS with tracking number X is reported to have been destroyed in an accident. Find the contact information for the customer.
 ![image](https://user-images.githubusercontent.com/53611554/193029229-65b4ccd8-e966-4de5-81c8-34c5ac56aaea.png)
+<img src="[이미지주소](https://user-images.githubusercontent.com/53611554/193029229-65b4ccd8-e966-4de5-81c8-34c5ac56aaea).png" width="200" height="400"/>
 
-• (TYPE 1-1) Then find the contents of that shipment and create a new shipment of 
-replacement items.
+• (TYPE 1-1) Then find the contents of that shipment and create a new shipment of replacement items.
 ![image](https://user-images.githubusercontent.com/53611554/193029252-7084a429-c731-4a75-aeda-f740c991a4d1.png)
 
 • (TYPE 2) Find the customer who has bought the most (by price) in the past year.
