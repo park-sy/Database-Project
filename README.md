@@ -6,7 +6,7 @@
 
 E-R diagram
 
-![ERD2 20160530](https://user-images.githubusercontent.com/53611554/193031107-56e35e31-2c7d-41a2-b007-d57a808aafb7.png){: width="600" height="800"}
+![ERD2 20160530](https://user-images.githubusercontent.com/53611554/193032661-e2124dab-4241-407f-829d-ea746bcd5843.png)
 
 Schema diagram
 ![image](https://user-images.githubusercontent.com/53611554/193028739-7eb70965-b15a-48dc-a782-2689093d0267.png)
