@@ -4,14 +4,13 @@
 
 가상의 Electronics Vendor company의 DBA라고 가정한다. 이 회사에서는 회사 운영의 기초가 되는 데이터베이스의 주요 부분을 재설하기로 결정했고, 설계 제안을 요청하는 관리자는 컴퓨터에 대해 잘 알지 못하고, 기술 수준에서 매우 상세한 사양을 제공할 수 없다. 때문에 요구사항을 분석하고 주어진 질의에 적절하게 대응할 수 있도록 데이터베이스 설계 제안서를 작성해야 한다.
 
-E-R diagram
-
+## E-R diagram  
 ![ERD2 20160530](https://user-images.githubusercontent.com/53611554/193032661-e2124dab-4241-407f-829d-ea746bcd5843.png)
 
-Schema diagram
+## Schema diagram  
 ![image](https://user-images.githubusercontent.com/53611554/193028739-7eb70965-b15a-48dc-a782-2689093d0267.png)
 
-Query
+## Query  
 (TYPE 1) Assume the package shipped by USPS with tracking number X is reported to have been destroyed in an accident. Find the contact information for the customer.  
 • (TYPE 1-1) Then find the contents of that shipment and create a new shipment of replacement items.
 
