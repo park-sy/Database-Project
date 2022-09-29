@@ -6,24 +6,24 @@
 
 E-R diagram
 
-![ERD2 20160530](https://user-images.githubusercontent.com/53611554/193031107-56e35e31-2c7d-41a2-b007-d57a808aafb7.png)
+![ERD2 20160530](https://user-images.githubusercontent.com/53611554/193031107-56e35e31-2c7d-41a2-b007-d57a808aafb7.png){: width="600" height="800"}
 
 Schema diagram
 ![image](https://user-images.githubusercontent.com/53611554/193028739-7eb70965-b15a-48dc-a782-2689093d0267.png)
 
 Query
-(TYPE 1) Assume the package shipped by USPS with tracking number X is reported to have been destroyed in an accident. Find the contact information for the customer.
+(TYPE 1) Assume the package shipped by USPS with tracking number X is reported to have been destroyed in an accident. Find the contact information for the customer.  
 • (TYPE 1-1) Then find the contents of that shipment and create a new shipment of replacement items.
 
-(TYPE 2) Find the customer who has bought the most (by price) in the past year.
+(TYPE 2) Find the customer who has bought the most (by price) in the past year.  
 • (TYPE 2-1) Then find the product that the customer bought the most.
 
-(TYPE 3) Find all products sold in the past year.
-• (TYPE 3-1) Then find the top k products by dollar-amount sold.
+(TYPE 3) Find all products sold in the past year.  
+• (TYPE 3-1) Then find the top k products by dollar-amount sold.  
 • (TYPE 3-2) And then find the top 10% products by dollar-amount sold.
 
-(TYPE 4) Find all products by unit sales in the past year.
-• (TYPE 4-1) Then find the top k products by unit sales.
+(TYPE 4) Find all products by unit sales in the past year.  
+• (TYPE 4-1) Then find the top k products by unit sales.  
 • (TYPE 4-2) And then find the top 10% products by unit sales.
 
 (TYPE 5) Find those products that are out-of-stock at every store in California.
